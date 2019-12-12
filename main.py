@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from contextlib import closing
 from urllib.parse import urljoin
+import concurrent.futures
 
 BASE_URL = 'https://www.archicom.pl/m/'
 
@@ -45,3 +46,6 @@ def is_flat_available(url):
 if __name__ == '__main__':
     for floor, flat in flats.items():
         print(f'{floor}: {is_flat_available(flat)}')
+    # with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    #     executor.map(is_flat_available, flats.values())
+    # todo: think about monitoring prices as well
