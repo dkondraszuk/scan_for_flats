@@ -1,10 +1,12 @@
+import logging
 from contextlib import closing
 from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
-import flats
 
+import flats
+from my_logger import log
 
 BASE_URL = 'https://www.archicom.pl/m/'
 
@@ -15,7 +17,7 @@ def get_request(url):
             if is_good_resp(resp):
                 return resp.content
     except requests.RequestException as e:
-        print(f'Error during request to {url} : {e}')
+        log(logging.ERROR, f'Error during request to {url} : {e}')
 
 
 def is_good_resp(resp):
@@ -37,4 +39,4 @@ def is_flat_available(url):
 
 if __name__ == '__main__':
     for flat in flats.all_flats:
-        print(f'Floor {flat.floor}: {is_flat_available(urljoin(BASE_URL, flat.id))}')
+        log(logging.ERROR, f'Floor {flat.floor}: {is_flat_available(urljoin(BASE_URL, flat.id))}')
