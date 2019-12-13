@@ -1,20 +1,12 @@
-import requests
-from bs4 import BeautifulSoup
 from contextlib import closing
 from urllib.parse import urljoin
-import concurrent.futures
+
+import requests
+from bs4 import BeautifulSoup
+import flats
+
 
 BASE_URL = 'https://www.archicom.pl/m/'
-
-flats = {
-    1: urljoin(BASE_URL, '13902'),
-    2: urljoin(BASE_URL, '13941'),
-    3: urljoin(BASE_URL, '13931'),
-    4: urljoin(BASE_URL, '14023'),
-    5: urljoin(BASE_URL, '14005'),
-    6: urljoin(BASE_URL, '14011'),
-    7: urljoin(BASE_URL, '13968'),
-}
 
 
 def get_request(url):
@@ -44,8 +36,5 @@ def is_flat_available(url):
 
 
 if __name__ == '__main__':
-    for floor, flat in flats.items():
-        print(f'{floor}: {is_flat_available(flat)}')
-    # with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-    #     executor.map(is_flat_available, flats.values())
-    # todo: think about monitoring prices as well
+    for flat in flats.all_flats:
+        print(f'Floor {flat.floor}: {is_flat_available(urljoin(BASE_URL, flat.id))}')
