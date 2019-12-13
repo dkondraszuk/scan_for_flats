@@ -22,24 +22,17 @@ def create_table(conn, create_table_sql):
 
 
 def main():
-    sql_create_previous_flats_status = """ CREATE TABLE IF NOT EXISTS PreviousStatus (
+    sql_create_statuses_table = """ CREATE TABLE IF NOT EXISTS statuses (
                                             floor integer PRIMARY KEY,
-                                            status text NOT NULL,
-                                            price integer NOT NULL
-                                    );"""
-
-    sql_create_current_flats_status = """ CREATE TABLE IF NOT EXISTS CurrentStatus (
-                                            floor integer PRIMARY KEY,
-                                            status text NOT NULL,
-                                            price integer NOT NULL,
-                                            prev_floor integer NOT NULL,
-                                            FOREIGN KEY (prev_floor) REFERENCES PreviousStatus (floor)
+                                            prev_status text NOT NULL,
+                                            curr_status text NOT NULL,
+                                            prev_price integer NOT NULL,
+                                            curr_price integer NOT NULL
                                     );"""
 
     conn = create_connection(DB_FILE)
     if conn is not None:
-        create_table(conn, sql_create_previous_flats_status)
-        create_table(conn, sql_create_current_flats_status)
+        create_table(conn, sql_create_statuses_table)
     else:
         print('Error! Cannot create database connection!')
 
