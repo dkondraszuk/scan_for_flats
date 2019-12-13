@@ -5,7 +5,6 @@ from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 
-import flats
 from my_logger import log
 
 BASE_URL = 'https://www.archicom.pl/m/'
@@ -27,16 +26,30 @@ def is_good_resp(resp):
             and 'html' in content_type)
 
 
-def is_flat_available(url):
+def get_html(url):
     raw_html = get_request(url)
     html = BeautifulSoup(raw_html, 'html.parser')
-    flat_status = html.find_all('td', class_='status')
-    for item in flat_status:
-        if 'wolny' in item.text:
-            return True
-    return False
+    return html
+
+
+def get_flat_status(html):
+    td_status = html.find('td', class_='status')
+    raw_status = td_status.text
+    clean_status = raw_status.strip()[8:]  # cut leading 'Status: ' string
+    return clean_status
+
+
+def get_flat_price(html):
+    input_price = html.find('script')
+    raw_price = input_price.text
+    price_index = raw_price.find('price')
+    price = raw_price[price_index + 8: price_index + 8 + 6]  # +8 to cut leading string, +6 due to 6 digit price
+    return int(price)
 
 
 if __name__ == '__main__':
-    for flat in flats.all_flats:
-        log(logging.ERROR, f'Floor {flat.floor}: {is_flat_available(urljoin(BASE_URL, flat.id))}')
+    html = get_html(url=urljoin(BASE_URL, '13899'))
+    status = get_flat_status(html)
+    price = get_flat_price(html)
+    print(price, type(price))
+    print(status, type(status))

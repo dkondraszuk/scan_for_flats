@@ -1,8 +1,8 @@
 import logging
 
 LOG_TO_FILE = True
-CONSOLE_FORMAT = '%(levelname)-8s| %(message)s'
-FILE_FORMAT = '%(asctime)s | %(levelname)-8s | %(message)s'
+CONSOLE_FORMAT = '%(levelname)-5s | %(message)s'
+FILE_FORMAT = '%(asctime)s | %(levelname)-5s | %(message)s'
 DATE_FORMAT = '%d/%m/%Y %H:%M:%S'
 
 

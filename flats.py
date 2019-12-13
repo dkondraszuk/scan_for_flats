@@ -1,40 +1,45 @@
 from collections import namedtuple
 
+FREE = 'wolny'
+SOLD = 'sprzedany'
+RESERVED = 'zarezerwowany'
+
+
 FlatStatus = namedtuple('FlatStatus', 'floor, status, price, id')
 
 
 flat1 = FlatStatus(floor=1,
-                   status='wolny',
+                   status=FREE,
                    price=602000,
                    id='13902')
 
 flat2 = FlatStatus(floor=2,
-                   status='wolny',
+                   status=FREE,
                    price=602000,
                    id='13941')
 
 flat3 = FlatStatus(floor=3,
-                   status='wolny',
+                   status=FREE,
                    price=602000,
                    id='13931')
 
 flat4 = FlatStatus(floor=4,
-                   status='wolny',
+                   status=FREE,
                    price=602000,
                    id='14023')
 
 flat5 = FlatStatus(floor=5,
-                   status='wolny',
+                   status=FREE,
                    price=602000,
                    id='14005')
 
 flat6 = FlatStatus(floor=6,
-                   status='wolny',
+                   status=FREE,
                    price=602000,
                    id='14011')
 
 flat7 = FlatStatus(floor=7,
-                   status='wolny',
+                   status=FREE,
                    price=602000,
                    id='13968')
 
