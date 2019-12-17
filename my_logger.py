@@ -20,7 +20,7 @@ logger.addHandler(console_handler)
 # create file handler, formatter and add to logger instance if specified:
 if LOG_TO_FILE:
     file_formatter = logging.Formatter(fmt=FILE_FORMAT, datefmt=DATE_FORMAT)
-    file_handler = logging.FileHandler(filename='failures.log', mode='a', encoding='utf-8')
+    file_handler = logging.FileHandler(filename='execution.log', mode='a', encoding='utf-8')
     file_handler.setFormatter(file_formatter)
     logger.addHandler(file_handler)
 
