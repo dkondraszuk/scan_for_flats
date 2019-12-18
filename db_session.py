@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
 from db_declarative import Base, Flat
 
 engine = create_engine('sqlite:///flats.db')
@@ -31,8 +32,8 @@ def select_all_flats():
 
 
 if __name__ == '__main__':
-    # fill_up_table()
-    update_flat(flat_floor=3, new_status='rezerwacja', new_price=315360)
+    # fill_up_table()  # fill up table with default values from flats_template.py
+    # update_flat(flat_floor=3, new_status='rezerwacja', new_price=315360)
 
     flats = session.query(Flat).all()
     for flat in flats:

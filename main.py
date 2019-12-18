@@ -14,15 +14,11 @@ if __name__ == '__main__':
         new_status = ws.get_flat_status(html)
         new_price = ws.get_flat_price(html)
         if new_status != flat.status and new_price != flat.price:
-            notify.send_sms_about_change()  # todo: with status and price params
             db_session.update_flat(flat_floor=flat.floor, new_status=new_status, new_price=new_price)
+            notify.send_sms_notification(flat=flat, status_change=True, price_change=True)
         elif new_status != flat.status:
-            notify.send_sms_about_change()  # todo: with status param only
             db_session.update_flat(flat_floor=flat.floor, new_status=new_status)
+            notify.send_sms_notification(flat=flat, status_change=True, price_change=False)
         elif new_price != flat.price:
-            notify.send_sms_about_change()  # todo: with price param only
             db_session.update_flat(flat_floor=flat.floor, new_price=new_price)
-
-    updated_flats = db_session.select_all_flats()  # todo: remove
-    for up_flat in updated_flats:
-        print(up_flat)
+            notify.send_sms_notification(flat=flat, status_change=False, price_change=True)
