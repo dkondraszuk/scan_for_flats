@@ -29,5 +29,5 @@ if __name__ == '__main__':
             db_session.update_flat(flat_floor=flat.floor, new_price=new_price)
             notify.send_sms_notification(flat=flat, status_change=False, price_change=True)
         else:
-            log(logging.DEBUG, f'Flat #{flat.flat_id} at floor {flat.floor} scanned successfully. No changes detected!')
+            log(logging.INFO, f'Flat #{flat.flat_id} at floor {flat.floor} scanned successfully. No changes detected!')
     log(logging.INFO, '*** Scan session completed! ***\n')
